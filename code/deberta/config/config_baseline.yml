@@ -1,0 +1,42 @@
+data:
+  path_to_data: dataset
+  train_file: mix_seq_deberta/train_data.json # this is for the train_test_split.py and eval_f1.py output
+  validation_file: final/validation_data.json # this is for the train_test_split.py and eval_f1.py output
+  test_file: mix_seq_deberta/test_data.json # this is for the train_test_split.py and eval_f1.py output
+  train_file_name: in-domain_dataset/data_gen_content_train.json # this is the train file to be used by hf_token_classification.py
+  validation_file_name:  in-domain_dataset/data_gen_content_val.json # this is the validation file to be used by hf_token_classification.py
+  test_file_name:  in-domain_dataset/data_gen_content_test.json # this is the test file to be used by hf_token_classification.py
+  # train_file: ood_gpt-4o-mini/train_data.json # this is for the train_test_split.py and eval_f1.py output
+  # validation_file: ood_gpt-4o-mini/validation_data.json # this is for the train_test_split.py and eval_f1.py output
+  # test_file: ood_gpt-4o-mini/test_data.json # this is for the train_test_split.py and eval_f1.py output
+  # train_file_name: ood_gpt-4o-mini/data_gen_content_train.json # this is the train file to be used by hf_token_classification.py
+  # validation_file_name:  ood_gpt-4o-mini/data_gen_content_val.json # this is the validation file to be used by hf_token_classification.py
+  # test_file_name:  ood_gpt-4o-mini/data_gen_content_test.json # this is the test file to be used by hf_token_classification.py
+  # train_file: mixtral_in-domain/Mixtral-8x7B_train_data.json # this is for the train_test_split.py and eval_f1.py output
+  # validation_file: mixtral_in-domain/Mixtral-8x7B_validation_data.json # this is for the train_test_split.py and eval_f1.py output
+  # test_file: mixtral_in-domain/Mixtral-8x7B_test_data.json # this is for the train_test_split.py and eval_f1.py output
+  # train_file_name: mixtral_in-domain/data_gen_content_train.json # this is the train file to be used by hf_token_classification.py
+  # validation_file_name:  mixtral_in-domain/data_gen_content_val.json # this is the validation file to be used by hf_token_classification.py
+  # test_file_name:  mixtral_in-domain/data_gen_content_test.json # this is the test file to be used by hf_token_classification.py
+environment:
+  SEED: 0
+  val_size: 0.2 # this is used in dagpap24_baseline.py to split train dataset 
+bert: # bert model params
+  # model: microsoft/deberta-v3-base
+  model: microsoft/deberta-v3-base
+  MAX_LENGTH: 2048
+  num_train_epochs: 5
+  per_device_train_batch_size: 2
+  per_device_eval_batch_size: 2
+  save_steps: 15000
+  output_dir: output_dev/deberta_ood_dataset
+  overwrite_output_dir: True
+  report_to: none
+  do_train: True
+  do_eval: True
+  do_predict: True
+  preprocessing_num_workers: 16
+  evaluation_strategy: steps
+  eval_steps: 1000
+  eval_accumulation_steps: 5
+  log_level: error
